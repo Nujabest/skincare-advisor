@@ -35,4 +35,3 @@ jobs:
       - name: 🧪 Run Pytest
         run: |
           pytest --maxfail=1 --disable-warnings -q
-
