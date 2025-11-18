@@ -1,5 +1,5 @@
 from backend.db import Base, engine
-from backend.models import Analysis
+from backend.models import Analysis # noqa: F401
 
 def init_db():
     print("Creating database tables...")
