@@ -1,22 +1,21 @@
-matplotlib
-
 fastapi
 uvicorn[standard]
 python-multipart
-sqlalchemy
-psycopg2-binary
 httpx
 
-# Engine d'analyse
-numpy
-opencv-python
+# Vision
+torch
+transformers
+Pillow
 
+# Mistral API
+mistralai
+python-dotenv
+
+# Frontend
 streamlit
 requests
 
-ollama
-
-
-# Qualité & tests
+# Tests
 pytest
 ruff

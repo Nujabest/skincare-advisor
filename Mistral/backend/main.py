@@ -1,20 +1,12 @@
 from fastapi import FastAPI
+from backend.routes.analyze import router as analyze_router
+from backend.routes.test_mistral import router as test_router
 
-# Import du router upload
-from backend.routes import upload
-from backend.routes import analyze 
-from backend.routes import results
+app = FastAPI(title="SkinCare Advisor - Mistral")
 
-app = FastAPI()
-
+app.include_router(analyze_router)
+app.include_router(test_router)
 
 @app.get("/")
 def home():
-    return {"message": "SkinCare Advisor API running"}
-
-
-
-# On attache les routes à l'application
-app.include_router(upload.router)
-app.include_router(analyze.router) 
-app.include_router(results.router)
+    return {"message": "Mistral API running!"}

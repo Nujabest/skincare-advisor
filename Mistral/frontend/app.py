@@ -1,24 +1,39 @@
 import streamlit as st
 import requests
+import tempfile
 
-st.title("SkinCare Advisor")
+BACKEND_URL = "http://localhost:8000"
 
-file = st.file_uploader("Choisissez une photo")
+st.title("SkinCare Advisor 💄")
 
-if file:
-    with st.spinner("Analyse IA en cours..."):
-        files = {"file": file.getvalue()}
+uploaded_file = st.file_uploader("Choisissez une photo", type=["jpg", "jpeg", "png"])
 
-        # APPEL A LA ROUTE IA
-        response = requests.post("http://localhost:8000/ai-analyze", files=files)
+if uploaded_file:
+    st.image(uploaded_file, caption="Image sélectionnée", width=400)
+    st.info("Analyse de la peau en cours… ⏳")
 
-        if response.status_code == 200:
+    with tempfile.NamedTemporaryFile(delete=False) as tmp:
+        tmp.write(uploaded_file.getbuffer())
+        temp_path = tmp.name
+
+    with open(temp_path, "rb") as f:
+        files = {"file": (uploaded_file.name, f, uploaded_file.type)}
+
+        try:
+            response = requests.post(f"{BACKEND_URL}/ai-analyze", files=files, timeout=90)
             data = response.json()
 
-            st.subheader("🧠 Résultat IA")
-            
-            # ⚠️ OLLAMA => on affiche la clé "raw"
-            st.write(data.get("raw", "Aucun résultat retourné par l’IA."))
+            if data["status"] == "success":
+                st.success("Analyse terminée !")
+                st.markdown(data["raw"])
+            else:
+                st.error("Erreur : " + data["raw"])
 
-        else:
-            st.error("Erreur lors de l'analyse")
+        except Exception as e:
+            st.error(f"Impossible de contacter le backend : {e}")
+
+st.write("---")
+
+if st.button("Tester la connexion à Mistral 🧪"):
+    r = requests.get(f"{BACKEND_URL}/test-mistral")
+    st.json(r.json())
