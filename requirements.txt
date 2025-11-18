@@ -1,4 +1,10 @@
 matplotlib
 
+fastapi
+uvicorn[standard]
+python-multipart
+sqlalchemy
+psycopg2-binary
+
 pytest
 ruff
