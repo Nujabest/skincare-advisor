@@ -22,16 +22,28 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: 📦 Install dependencies
+      - name: 📦 Install root dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest ruff
 
+      - name: 📦 Install Mistral dependencies
+        run: |
+          pip install -r Mistral/requirements.txt
+
+      - name: 📦 Install Ollama dependencies
+        run: |
+          pip install -r Ollama/requirements.txt
+
       - name: 🧹 Run Ruff (lint)
         run: |
-          ruff check .
+          ruff check . --exclude "planning.ipynb"
 
-      - name: 🧪 Run Pytest
+      - name: 🧪 Run Pytest on Mistral
         run: |
-          pytest --maxfail=1 --disable-warnings -q
+          pytest Mistral/tests --maxfail=1 --disable-warnings -q
+
+      - name: 🧪 Run Pytest on Ollama
+        run: |
+          pytest Ollama/tests --maxfail=1 --disable-warnings -q
