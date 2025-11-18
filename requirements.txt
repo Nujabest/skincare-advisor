@@ -1,11 +1,20 @@
-
 matplotlib
+
 fastapi
 uvicorn[standard]
 python-multipart
 sqlalchemy
 psycopg2-binary
 httpx
+
+# Engine d'analyse
+numpy
+opencv-python
+
+streamlit
+requests
+
+
+# Qualité & tests
 pytest
 ruff
-
