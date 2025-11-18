@@ -5,6 +5,7 @@ uvicorn[standard]
 python-multipart
 sqlalchemy
 psycopg2-binary
+httpx
 
 pytest
 ruff
