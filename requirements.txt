@@ -1,4 +1,3 @@
-
 matplotlib
 
 fastapi
@@ -8,6 +7,10 @@ sqlalchemy
 psycopg2-binary
 httpx
 
+# Engine d'analyse
+numpy
+opencv-python
+
+# Qualité & tests
 pytest
 ruff
-
