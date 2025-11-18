@@ -1,11 +1,15 @@
 matplotlib
 
+# Etape 1: Framework web et utilitaires
 fastapi
 uvicorn[standard]
 python-multipart
 sqlalchemy
 psycopg2-binary
 httpx
+
+# Etape 2: Traitement d'images et machine learning
+opencv-python
 
 pytest
 ruff
