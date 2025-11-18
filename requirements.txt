@@ -11,6 +11,10 @@ httpx
 numpy
 opencv-python
 
+streamlit
+requests
+
+
 # Qualité & tests
 pytest
 ruff
