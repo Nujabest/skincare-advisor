@@ -7,7 +7,7 @@ httpx
 torch
 transformers
 Pillow
-
+mediapipe
 # Mistral API
 mistralai
 python-dotenv
@@ -19,7 +19,7 @@ bcrypt
 # Frontend
 streamlit
 requests
-
+opencv-python
 # Tests
 pytest
 pytest-asyncio

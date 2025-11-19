@@ -34,3 +34,26 @@ st.button("Se déconnecter 🔐", on_click=lambda: (
     st.session_state.update({"user_id": None}),
     st.switch_page("pages/1_Connexion.py")
 ))
+
+import streamlit as st
+import requests
+
+BACKEND_URL = "http://localhost:8000"
+uid = st.session_state["user_id"]
+
+
+
+r = requests.get(f"{BACKEND_URL}/analysis/gamification/{uid}")
+data = r.json()
+
+
+# --- Gamification ---
+g = requests.get(f"{BACKEND_URL}/analysis/gamification/{uid}").json()
+
+if g["progression"]:
+    st.success(f"💹 Amélioration : **+{g['progression']}%**")
+
+if g["badges"]:
+    st.subheader("🏆 Vos badges")
+    for b in g["badges"]:
+        st.write(b)
