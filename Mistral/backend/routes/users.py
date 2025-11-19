@@ -28,3 +28,7 @@ def update_user(user_id: int, user_in: schemas.UserUpdate, db: Session = Depends
     if not user:
         raise HTTPException(status_code=404, detail="Utilisateur introuvable")
     return user
+
+@router.get("/all")
+def get_all_users(db: Session = Depends(get_db)):
+    return db.query(models.User).all()

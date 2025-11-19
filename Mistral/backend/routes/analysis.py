@@ -7,6 +7,7 @@ from backend.services.skin_analysis import analyze_skin
 from backend.services.db_analysis import create_analysis
 from backend.utils.files import save_uploaded_image
 import backend.schemas as schemas
+from backend.services.db_analysis import get_analyses_by_user
 
 router = APIRouter(prefix="/analysis", tags=["Analysis"])
 
@@ -49,3 +50,11 @@ async def create_analysis_route(
     analysis = create_analysis(db, analysis_in)
 
     return analysis
+
+@router.get("/user/{user_id}", response_model=list[schemas.AnalysisRead])
+def list_analyses_for_user(user_id: int, db: Session = Depends(get_db)):
+    """
+    Retourne l'historique des analyses pour un utilisateur donné.
+    """
+    analyses = get_analyses_by_user(db, user_id)
+    return analyses
