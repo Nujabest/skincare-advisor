@@ -12,10 +12,15 @@ Pillow
 mistralai
 python-dotenv
 
+pydantic
+sqlalchemy
+alembic
+
 # Frontend
 streamlit
 requests
 
 # Tests
 pytest
+pytest-asyncio
 ruff

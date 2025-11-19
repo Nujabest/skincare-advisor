@@ -1,3 +1,4 @@
+# backend/routes/analyze.py
 from fastapi import APIRouter, UploadFile, File
 from backend.services.mistral_ai import analyze_skin_with_mistral
 
