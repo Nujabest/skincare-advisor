@@ -1,60 +1,48 @@
 from fastapi import APIRouter, UploadFile, File, Depends
 from sqlalchemy.orm import Session
-import json
 
 from backend.database import get_db
+from backend import schemas
 from backend.services.skin_analysis import analyze_skin
-from backend.services.db_analysis import create_analysis
-from backend.utils.files import save_uploaded_image
-import backend.schemas as schemas
-from backend.services.db_analysis import get_analyses_by_user
+from backend.services.db_analysis import create_analysis, get_analyses_by_user
+from backend.services.db_users import get_user
+from backend.services.beauty_report import generate_premium_report
 
 router = APIRouter(prefix="/analysis", tags=["Analysis"])
 
 
-@router.post("/create/{user_id}", response_model=schemas.AnalysisRead)
+@router.post("/create/{user_id}", response_model=schemas.AnalysisReadWithPremium)
 async def create_analysis_route(
     user_id: int,
     file: UploadFile = File(...),
     db: Session = Depends(get_db)
 ):
-    # 1. Lire l’image
     image_bytes = await file.read()
 
-    # 2. Sauvegarder l’image
-    image_path = save_uploaded_image(file, user_id)
+    results = analyze_skin(image_bytes)
 
-    # 3. Appel IA
-    ai = analyze_skin(image_bytes)   # ici AI renvoie déjà un DICT propre
-    # EXEMPLE :
-    # {
-    #  "skin_score": 6,
-    #  "type_peau": "mature",
-    #  "problemes": ["rides", ...],
-    #  "recommandations": ["...", "..."],
-    #  "raw_analysis": "texte complet"
-    # }
-
-    # 4. Construire l'objet à enregistrer
     analysis_in = schemas.AnalysisCreate(
         user_id=user_id,
-        image_path=image_path,
-        skin_score=ai.get("skin_score"),
-        type_peau=ai.get("type_peau"),
-        problemes=",".join(ai.get("problemes", [])),
-        recommandations=",".join(ai.get("recommandations", [])),
-        raw_analysis=ai.get("raw_analysis")  # <-- ON GARDE LE TEXTE BRUT
+        image_path="placeholder.jpg",
+        skin_score=results.get("skin_score"),
+        type_peau=results.get("type_peau"),
+        problemes=",".join(results.get("problemes", [])),
+        recommandations=",".join(results.get("recommandations", [])),
+        raw_analysis=results.get("raw_analysis")
     )
 
-    # 5. Enregistrer
     analysis = create_analysis(db, analysis_in)
 
-    return analysis
+    user = get_user(db, user_id)
+
+    premium_text = generate_premium_report(user, results)
+
+    data = schemas.AnalysisReadWithPremium.model_validate(analysis).model_dump()
+    data["premium_report"] = premium_text
+
+    return data
+
 
 @router.get("/user/{user_id}", response_model=list[schemas.AnalysisRead])
 def list_analyses_for_user(user_id: int, db: Session = Depends(get_db)):
-    """
-    Retourne l'historique des analyses pour un utilisateur donné.
-    """
-    analyses = get_analyses_by_user(db, user_id)
-    return analyses
+    return get_analyses_by_user(db, user_id)

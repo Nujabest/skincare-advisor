@@ -64,3 +64,10 @@ class AnalysisRead(AnalysisBase):
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+class AnalysisReadWithPremium(AnalysisRead):
+    premium_report: Optional[str] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+

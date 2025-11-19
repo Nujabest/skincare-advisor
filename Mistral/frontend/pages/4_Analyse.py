@@ -7,7 +7,7 @@ BACKEND_URL = "http://localhost:8000"
 init_session()
 
 if st.session_state["user_id"] is None:
-    st.switch_page("pages/1_Login.py")
+    st.switch_page("pages/1_Connexion.py")
 
 uid = st.session_state["user_id"]
 
@@ -31,22 +31,39 @@ if "sent" not in st.session_state:
 
 
 def send_image(image_bytes, filename="photo.jpg", mime="image/jpeg"):
-    """Envoie l'image au backend"""
+    """Envoie l’image au backend + affiche les résultats"""
+
     files = {"file": (filename, image_bytes, mime)}
 
     with st.spinner("Analyse en cours…"):
         r = requests.post(f"{BACKEND_URL}/analysis/create/{uid}", files=files)
 
-    if r.status_code == 200:
-        data = r.json()
-        st.success("Analyse terminée 🎉")
-        st.write("### Résultats :")
-        st.write(f"- **Score peau :** {data['skin_score']}")
-        st.write(f"- **Type :** {data['type_peau']}")
-        st.write(f"- **Problèmes :** {data['problemes']}")
-        st.write(f"- **Recommandations :** {data['recommandations']}")
-    else:
+    if r.status_code != 200:
         st.error("Erreur lors de l’analyse ❌")
+        st.write(r.text)
+        return
+
+    # récupération de toutes les données
+    data = r.json()
+
+    st.success("Analyse terminée 🎉")
+
+    # --- Résultats automatiques ---
+    st.subheader("🧪 Résultats IA")
+    st.write(f"**Score peau :** {data['skin_score']}")
+    st.write(f"**Type :** {data['type_peau']}")
+    st.write(f"**Problèmes :** {data['problemes']}")
+    st.write(f"**Recommandations :** {data['recommandations']}")
+
+    # --- Rapport premium ---
+    premium = data.get("premium_report")
+
+    if premium:
+        st.subheader("💎 Rapport Beauté Premium")
+        st.markdown(premium)
+
+    else:
+        st.info("Aucun rapport premium n’a été généré.")
 
 
 # ----------------------------------------------------------
