@@ -9,6 +9,12 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
+
+    # Authentification
+    email = Column(String, unique=True, index=True, nullable=False)
+    password_hash = Column(String, nullable=False)
+
+    # Infos utilisateur
     age = Column(Integer, nullable=True)
     sexe = Column(String, nullable=True)
     type_peau_habituel = Column(String, nullable=True)
@@ -16,6 +22,7 @@ class User(Base):
     routine_actuelle = Column(String, nullable=True)
     objectifs = Column(String, nullable=True)
 
+    # Relation
     analyses = relationship("Analysis", back_populates="user")
 
 
@@ -23,7 +30,7 @@ class Analysis(Base):
     __tablename__ = "analyses"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 
     skin_score = Column(Float, nullable=True)
     type_peau = Column(String, nullable=True)
@@ -35,4 +42,5 @@ class Analysis(Base):
 
     created_at = Column(DateTime, default=datetime.utcnow)
 
+    # Relation inverse
     user = relationship("User", back_populates="analyses")

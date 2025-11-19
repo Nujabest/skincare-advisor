@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ConfigDict
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 
 # ================================
@@ -16,15 +16,26 @@ class UserBase(BaseModel):
 
 
 class UserCreate(UserBase):
-    pass
+    # Champs obligatoires pour créer un compte
+    email: str
+    password: str
+
+
+class UserLogin(BaseModel):
+    # Pour la connexion
+    email: str
+    password: str
 
 
 class UserUpdate(UserBase):
+    # Mise à jour du profil (email/password non modifiés ici)
     pass
 
 
 class UserRead(UserBase):
+    # Ce qu'on renvoie au frontend
     id: int
+    email: str
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -36,7 +47,7 @@ class UserRead(UserBase):
 class AnalysisBase(BaseModel):
     skin_score: Optional[float] = None
     type_peau: Optional[str] = None
-    problemes: Optional[str] = None
+    problemes: Optional[str] = None   # Liste sous forme de string "acné, taches"
     recommandations: Optional[str] = None
     raw_analysis: Optional[str] = None
 
