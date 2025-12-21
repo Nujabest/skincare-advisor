@@ -1,0 +1,127 @@
+{% extends "layout.html" %}
+{% set title = "Skinalyze — Upload" %}
+
+{% block content %}
+<div class="upload-page">
+  <div class="upload-card">
+    <h2>Étape 1 : j’ajoute une photo</h2>
+
+    {% if error %}
+      <div style="color:#c00;margin:10px 0;">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+
+      <!-- INPUT FILE CACHÉ -->
+      <input
+        type="file"
+        name="image"
+        id="imageInput"
+        accept="image/*"
+        required
+        style="display:none;"
+      >
+
+      <!-- ZONE UPLOAD -->
+      <div
+        id="dropzone"
+        style="
+          margin:12px 0;
+          padding:40px;
+          border:2px dotted #111;
+          border-radius:18px;
+          text-align:center;
+          cursor:pointer;
+          transition: background .12s ease;
+        "
+      >
+        <div id="dzIcon" style="margin-bottom:12px;font-size:34px;">☁️</div>
+
+        <div id="dzMain" style="font-weight:600;">
+          Faire glisser une image ici
+        </div>
+
+        <div id="dzSub" style="font-size:13px;opacity:0.7;margin-top:6px;">
+          ou cliquer pour sélectionner un fichier
+        </div>
+
+        <!-- Preview (hidden by default) -->
+        <div id="previewWrap" style="display:none;margin-top:14px;">
+          <img
+            id="previewImg"
+            alt="aperçu"
+            style="max-width:220px;max-height:140px;border-radius:12px;border:1px solid rgba(0,0,0,.2);"
+          >
+        </div>
+      </div>
+
+      <textarea
+        name="note"
+        rows="4"
+        placeholder="Ajoute un message (optionnel)…"
+        style="width:100%;padding:12px;border:1px solid #111;border-radius:12px;"
+      >{{ note or "" }}</textarea>
+
+      <button class="lander-btn" style="margin-top:12px;width:100%;">
+        Analyser
+      </button>
+
+      <a href="/history"
+        class="lander-btn ghost"
+        style="margin-top:10px;width:100%;display:inline-flex;justify-content:center;">
+        Voir l’historique
+      </a>
+
+    </form>
+  </div>
+</div>
+
+<script>
+  const dz = document.getElementById("dropzone");
+  const input = document.getElementById("imageInput");
+
+  const dzMain = document.getElementById("dzMain");
+  const dzSub = document.getElementById("dzSub");
+  const dzIcon = document.getElementById("dzIcon");
+
+  const previewWrap = document.getElementById("previewWrap");
+  const previewImg = document.getElementById("previewImg");
+
+  function setSelected(file){
+    if (!file) return;
+
+    dzIcon.textContent = "✅";
+    dzMain.textContent = "Image sélectionnée : " + file.name;
+    dzSub.textContent = "Clique pour changer de fichier";
+
+
+    const url = URL.createObjectURL(file);
+    previewImg.src = url;
+    previewWrap.style.display = "block";
+  }
+
+  dz.addEventListener("click", () => input.click());
+
+  input.addEventListener("change", () => {
+    if (input.files && input.files[0]) setSelected(input.files[0]);
+  });
+
+  dz.addEventListener("dragover", e => {
+    e.preventDefault();
+    dz.style.background = "rgba(0,0,0,0.03)";
+  });
+
+  dz.addEventListener("dragleave", () => {
+    dz.style.background = "transparent";
+  });
+
+  dz.addEventListener("drop", e => {
+    e.preventDefault();
+    dz.style.background = "transparent";
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      input.files = e.dataTransfer.files;
+      setSelected(e.dataTransfer.files[0]);
+    }
+  });
+</script>
+{% endblock %}

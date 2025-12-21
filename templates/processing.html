@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% set title = "Skinalyze — Génération" %}
+
+{% block content %}
+<div class="processing-page">
+  <div class="processing-card">
+    <div class="processing-text">Génération de mon diagnostic personnalisé…</div>
+    <div class="processing-sub">(analyse en cours)</div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar">
+        <div id="progressInner" class="progress-inner"></div>
+      </div>
+      <div id="progressPct" class="progress-pct">0%</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const bar = document.getElementById("progressInner");
+  const pct = document.getElementById("progressPct");
+  let value = 0;
+
+  const timer = setInterval(() => {
+    value += Math.floor(Math.random() * 6) + 4;
+    if (value >= 100) value = 100;
+    bar.style.width = value + "%";
+    pct.textContent = value + "%";
+
+    if (value === 100) {
+      clearInterval(timer);
+      setTimeout(async () => {
+        try { await fetch("/api/analyze", { method: "POST" }); } catch (e) {}
+        window.location.href = "/result";
+      }, 600);
+    }
+  }, 220);
+</script>
+{% endblock %}

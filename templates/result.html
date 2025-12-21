@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% set title = "Skinalyze — Résultat" %}
+
+{% block content %}
+<div class="result-page">
+
+  <h1 class="result-title">Étape 2 : je consulte mon diagnostic</h1>
+
+  <!-- WRAPPER centré pour tout le contenu -->
+  <div style="max-width:1100px;margin:0 auto;">
+
+    <!-- GRID: metrics + contenu -->
+    <div style="display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start;">
+
+      <!-- METRICS -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start;">
+
+        <div style="border:3px solid #111;border-radius:14px;padding:10px;min-height:74px;">
+          <div style="font-weight:800;font-size:12px;opacity:.75;">URGENCE</div>
+          <div style="font-weight:800;font-size:16px;margin-top:8px;">{{ metrics.urgence }}</div>
+        </div>
+
+        <div style="border:3px solid #111;border-radius:14px;padding:10px;min-height:74px;">
+          <div style="font-weight:800;font-size:12px;opacity:.75;">SCORE PEAU</div>
+          <div style="font-weight:800;font-size:16px;margin-top:8px;">{{ metrics.score_peau }}/100</div>
+        </div>
+
+        <div style="border:3px solid #111;border-radius:14px;padding:10px;min-height:74px;">
+          <div style="font-weight:800;font-size:12px;opacity:.75;">CONFIANCE</div>
+          <div style="font-weight:800;font-size:16px;margin-top:8px;">{{ metrics.confiance }}</div>
+        </div>
+
+        <div style="border:3px solid #111;border-radius:14px;padding:10px;min-height:74px;">
+          <div style="font-weight:800;font-size:12px;opacity:.75;">INFLAMMATION</div>
+          <div style="font-weight:800;font-size:16px;margin-top:8px;">{{ metrics.inflammation }}</div>
+        </div>
+
+        <div style="border:3px solid #111;border-radius:14px;padding:10px;min-height:74px;">
+          <div style="font-weight:800;font-size:12px;opacity:.75;">ACNÉ</div>
+          <div style="font-weight:800;font-size:16px;margin-top:8px;">{{ metrics.acne }}</div>
+        </div>
+
+        <div style="border:3px solid #111;border-radius:14px;padding:10px;min-height:74px;">
+          <div style="font-weight:800;font-size:12px;opacity:.75;">RISQUE IRRITATION</div>
+          <div style="font-weight:800;font-size:16px;margin-top:8px;">{{ metrics.risque_irritation }}</div>
+        </div>
+
+      </div>
+
+      <!-- CONTENU -->
+      <div>
+
+        {% if chat %}
+          <!-- Image centrée -->
+          <div style="margin: 6px 0 14px; text-align:center;">
+            <img
+              src="/uploads/{{ chat.image_filename }}"
+              alt="Image analysée"
+              style="max-width:100%;max-height:260px;border-radius:16px;border:2px solid #111;"
+            >
+          </div>
+
+          <!-- Note utilisateur -->
+          {% if chat.note %}
+            <div style="margin-bottom:14px;padding:12px;border:2px solid #111;border-radius:14px;">
+              <strong>Message utilisateur :</strong><br>
+              {{ chat.note }}
+            </div>
+          {% endif %}
+        {% endif %}
+
+        <div class="result-box">
+          <pre class="result-text">{% if chat %}{{ chat.diagnostic }}{% else %}{{ diagnostic }}{% endif %}</pre>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Actions centrées -->
+    <div class="result-actions" style="justify-content:center;">
+      <a class="lander-btn ghost" href="/upload">Nouvelle image</a>
+      <a class="lander-btn" href="/history">Historique</a>
+      <a class="lander-btn" href="/">Accueil</a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

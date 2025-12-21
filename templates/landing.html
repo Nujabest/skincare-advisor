@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% set title = "Skinalyze" %}
+
+{% block content %}
+<div class="lander">
+  <div class="lander-top">Skinalyze</div>
+
+  <div class="lander-split">
+    <section class="lander-left">
+      <div class="lander-copy">
+        <div class="lander-lead">
+          Des recommandations personnalisées<br/>
+          de soins.
+        </div>
+
+        <div class="lander-sub">
+          Une seule image de votre imperfection<br/>
+          suffit pour y remédier.
+        </div>
+
+        <a class="lander-btn" href="/upload">Commencer</a>
+      </div>
+    </section>
+
+    <section class="lander-right">
+      <img class="lander-img" src="{{ url_for('static', filename='hero.png') }}" alt="Face" />
+    </section>
+  </div>
+</div>
+{% endblock %}

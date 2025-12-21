@@ -1,0 +1,8 @@
+Flask==3.0.3
+Flask-SQLAlchemy==3.0.2
+python-dotenv==1.0.1
+requests==2.32.3
+markdown2==2.4.8
+gunicorn==22.0.0
+pytest==7.4.2
+ruff==0.6.9
