@@ -45,9 +45,15 @@ skincare-advisor/─ static/
 ```
 
  
-# Tests de validation et de robustesse
-Afin de tester la robustesse, et donc de valider les commandes, deux tests ont été mobilisés dans cette situation. 
-Tout d'abord, 
+## Tests de validation et de robustesse
+Afin de tester la robustesse, et donc de valider les commandes, des tests unitaires ont été mobilisés dans cette situation. 
+
+Tout d'abord, le premier test unitaire (```test_app.py```) vise à tester l'application web de _Skinalyze_. Les élements ci-dessous répertorie une poignée d'exemples pour mieux comprendre ce que ce premier test unitaire englobe. 
+- ```test_analyze_without_upload``` : test de la gestion d'erreur quand une image n'est pas téléversée
+- ```test_history_page``` : test de l'accès à l'historique des analyses
+-```test_result_contains_metrics``` : affichage complet des résultats d'analyse
+
+Ensuite, un second test 
 
 ## Guide utilisateur (utilisation du site)
 
