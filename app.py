@@ -29,9 +29,9 @@ MISTRAL_VLM_MODEL = os.getenv("MISTRAL_VLM_MODEL", "pixtral-12b-2409").strip()
 # URL API Mistral
 MISTRAL_BASE = "https://api.mistral.ai/v1"
 
-
-DEMO_LOGIN = os.getenv("DEMO_LOGIN", "")
-DEMO_PASSWORD = os.getenv("DEMO_PASSWORD", "")
+#Default Login:1 Password:1
+DEMO_LOGIN = os.getenv("DEMO_LOGIN", "1")
+DEMO_PASSWORD = os.getenv("DEMO_PASSWORD", "1")
 
 
 
