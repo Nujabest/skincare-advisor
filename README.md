@@ -53,10 +53,21 @@ Tout d'abord, le premier test unitaire (```test_app.py```) vise à tester l'appl
 - ```test_history_page``` : test de l'accès à l'historique des analyses
 -```test_result_contains_metrics``` : affichage complet des résultats d'analyse
 
-Ensuite, un second test 
+Ensuite, un second test (```conftest.py```), sous la forme d'un fichier de configuration pytest, permet d'expérimenter l'environnement de test pour l'application. Cet environnement prépare un contexte isolé et prévisible pour tous les tests. Les exemples ci-dessous élaborent le contenu de ce test : 
+- ```small.png``` : génération d'une image, sous format PNG, valide pour éviter de fournir une image externe de test
+- ```@pytest.fixture client``` : élément principal de ce test, dans lequel un client complet est configuré pour préparer aux différents tests ultérieurs
 
 ## Guide utilisateur (utilisation du site)
+Cette section a pour but de guider l'utilisateur à naviguer le site web _Skinalyze_,  mais aussi de détailler les pages webs disponibles. 
 
+1. Page d'accueil
+
+2. Téléversement d'une image
+
+
+3. Consultation du diagnostic personnalisé
+
+La page 
 
 ## Conception fonctionnelle
 Cas d’utilisation
