@@ -10,12 +10,33 @@ Puisque les files d'attente pour les professionnels de la médecine esthétique 
 
 ## Technologies utilisées
 - __Back end__
-  - Python : serveur backend principal
-  - Docker : conteneurisation et déploiement de l'application
+  - Python (version 3.11) : serveur backend principal
+    - Werkzeug : sécurisation des noms de fichiers (utilitaire Flask)
+  - Docker : conteneurisation de l'application
+  - SQLite3 : base de données locale pour stocker l'historique des analyses
+  - API Mistral AI : Vision Language Model (modèle ```pixtral-12b-2409```) utilisé pour les analyses d'images et pour les générations de diagnostics de peau
 - __Front end__
   - HTML : structure des pages webs
+  - Flask : framework Python pour créer l'application
+    - Jinja2 : moteur de templates Flask
   - CSS : personnalisation de style de l'interface web
   - Images statiques : ressources visuelles
+- __Utilitaires__
+  - JSON :
+    - Extraction de métriques depuis les réponses de Mistral AI
+    - Stockage de données structurées
+  - Regex (re) :
+    - Nettoyage du texte généré
+  - Base64 :
+    - Encodage d'images pour l'API Mistral AI
+- __Déploiement___
+  - Docker :
+    - Déploiement de l'application
+    - Conteneurisation
+    - Orchestration des services
+- __Sécurité__
+  - Hook (```@app.before_request```) : authentification pour protéger les routes
+  - Flask : clé pour permettre des sessions sécurisées
 
 ## Architecture du projet
 Le schéma ci-dessous détaille l'arborescence du projet, en spécifiant les fichiers et leur dossier associé. 
@@ -67,7 +88,7 @@ Cette section a pour but de guider l'utilisateur à naviguer le site web _Skinal
 
 Le site web présente au total 4 pages, incluant l'historique. L'ordre d'utilisation est comme la liste ci-dessus. 
 
-Tout d'abord, l'utilisateur est mené vers la page d'accueil qui présente le site web avec une brève présentation, pour ensuite se connecter à son propre compte. En second lieu, l'utilisateur commence son expérience avec le téléversement d'une image. Il faut savoir que le site web n'accepte que les images sous format JPG, JPEG et PNG. Lors de la sélection de l'image, l'utilisateur peut rajouter, sous forme de texte, des commentaires pouvant aider à étayer son futur diagnostic. 
+Tout d'abord, l'utilisateur est mené vers la page d'accueil qui présente le site web avec une brève présentation, pour ensuite se connecter à son propre compte. En second lieu, l'utilisateur commence son expérience avec le téléversement d'une image. Il faut savoir que le site web n'accepte que les images sous format WEBP, JPG, JPEG et PNG. Lors de la sélection de l'image, l'utilisateur peut rajouter, sous forme de texte, des commentaires pouvant aider à étayer son futur diagnostic. 
 Après validation de l'image sélectionnée, l'utilisateur se retrouve alors sur son diagnostic personnel. Six mesures sont mises en place pour résumer la situation de l'utilisateur, basée sur l'image :
 - Acné : existence d'acné ou non
 - Risque irritation
@@ -79,10 +100,13 @@ Un diagnostic plus complet est fourni, contenant les conseils de routine, de nut
 Enfin, le client aura le choix de voir son historique d'analyse, ainsi que de refaire une analyse pour une autre zone de peau. 
 
 ## Déploiement de l'application
-Le déploiement de l'application s'est fait à travers une conteneurisation sous Docker. En parallèle, un achat d'un nom de domaine a été effectué afin d'héberger le site web ([Skinalyze](skinalyze.xyz)). Le site web est alors consultable depuis le lien fourni précédemment. Seul un compte est nécessaire pour accéder et bénéficier des services de _Skinalyze_. 
+Le déploiement de l'application s'est fait à travers une conteneurisation sous Docker. En parallèle, un achat d'un nom de domaine a été effectué afin d'héberger le site web de [Skinalyze](skinalyze.xyz). Le site web est alors consultable depuis le lien fourni précédemment. Seul un compte est nécessaire pour accéder et bénéficier des services de _Skinalyze_. 
 
 ## Conclusion
-+++
+Ce projet _Skinalyze_ est une application web d'analyse de peau qui combine des langages de programmation et l'intelligence artificielle (IA) de Mistral AI. Elle permet aux utilisateurs de télécharger des photos, d'obtenir des analyses automatisées avec des recommandations personnalisées et de consulter leur historique.
+L'architecture utilise SQLite, Flask et Docker pour créer une solution légère et portable. L'intégration de l'API Mistral Vision démontre une intégration des technologies d'IA, avec extraction structurée de métriques et génération de diagnostics détaillés.
+Pour alimenter la complétude du projet, des tests unitaires et de configuration, couvrant un large champ de développement, ont été inclus. 
+_Skinalyze_ illustre alors comment l'IA peut être mise au service de la santé dermatologique à travers une application web accessible et intuitive.
 
 Projet réalisé par : 
 - Ben Belgacem Dikra
