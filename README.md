@@ -20,8 +20,8 @@ Puisque les files d'attente pour les professionnels de la médecine esthétique 
 ## Architecture du projet
 Le schéma ci-dessous détaille l'arborescence du projet, en spécifiant les fichiers et leur dossier associé. 
 
-skincare-advisor/
-│── static/
+```
+skincare-advisor/─ static/
 │   ├── hero.png
 │   ├── main.css
 │── templates/
@@ -43,7 +43,8 @@ skincare-advisor/
 │── dockerfile
 │── requirements.txt
 
-## Tests de validation et de robustesse
+#
+```# Tests de validation et de robustesse
 Afin de tester la robustesse, et donc de valider les commandes, deux tests ont été mobilisés dans cette situation. 
 Tout d'abord, 
 
