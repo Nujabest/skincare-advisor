@@ -6,7 +6,7 @@ _Skinalyze_ est une première approche pour les clients dans le but de comprendr
 Puisque les files d'attente pour les professionnels de la médecine esthétique et dermatologique sont relativement allongées, _Skinalyze_ consiste à offrir aux utilisateurs une partie des soins conseillés par ces professionnels, à un coût moindre que ces derniers. C'est alors que _Skinalyze_ fournit un accès plus répandu et aisé aux soins dermatologiques pour tous les usagers, mais aussi aux conseils de nutrition.
 
 ## Objectif
-À travers une fusion de langages de programmation et de développement, ce projet s'inscrit dans une logique de diffusion de l'usage versatile de la technologie pour répondre aux besoins quotidiens des usagers. Ainsi, _Skinalyze_ est une porte d'entrée vers les conseils de nutrition et de dermatologie, améliorés par l'intelligence artificielle (IA) pour offrir une expérience personnalisée aux clients. 
+À travers une fusion de langages de programmation et de développement, ce projet s'inscrit dans une logique de diffusion de l'usage versatile de la technologie pour répondre aux besoins quotidiens des usagers. Ainsi, _Skinalyze_ est une porte d'entrée vers les conseils de nutrition et de dermatologie, améliorés par l'intelligence artificielle (IA) pour offrir une expérience personnalisée aux clients. Il est important de noter que les conseils résultant de _Skinalyze_ ne remplacent en aucun cas les conseils et soins procurés par un professionnel de la santé, _Skinalyze_ figure tel un outil d'aide à la décision. 
 
 ## Technologies utilisées
 - __Back end__
@@ -60,33 +60,26 @@ Ensuite, un second test (```conftest.py```), sous la forme d'un fichier de confi
 ## Guide utilisateur (utilisation du site)
 Cette section a pour but de guider l'utilisateur à naviguer le site web _Skinalyze_,  mais aussi de détailler les pages webs disponibles. 
 
-1. Page d'accueil
-
+1. Page d'accueil (connexion)
 2. Téléversement d'une image
-
-
 3. Consultation du diagnostic personnalisé
+4. Historique
 
-La page 
+Le site web présente au total 4 pages, incluant l'historique. L'ordre d'utilisation est comme la liste ci-dessus. 
 
-## Conception fonctionnelle
-Cas d’utilisation
-
-Parcours utilisateur
-
-Description des pages
-
-Page d’accueil
-
-Page de connexion
-
-Tableau de bord
-
-Etc.
+Tout d'abord, l'utilisateur est mené vers la page d'accueil qui présente le site web avec une brève présentation, pour ensuite se connecter à son propre compte. En second lieu, l'utilisateur commence son expérience avec le téléversement d'une image. Il faut savoir que le site web n'accepte que les images sous format JPG, JPEG et PNG. Lors de la sélection de l'image, l'utilisateur peut rajouter, sous forme de texte, des commentaires pouvant aider à étayer son futur diagnostic. 
+Après validation de l'image sélectionnée, l'utilisateur se retrouve alors sur son diagnostic personnel. Six mesures sont mises en place pour résumer la situation de l'utilisateur, basée sur l'image :
+- Acné : existence d'acné ou non
+- Risque irritation
+- Confiance : ????
+- Urgence : urgence de traitement ou non
+- Score peau : score sur 100 points au total, permettant d'indiquer à l'utilisateur l'amélioration possible de sa condition dermatologique
+- Inflammation : présence ou non d'une zone d'inflammation sur la peau
+Un diagnostic plus complet est fourni, contenant les conseils de routine, de nutrition et de compléments alimentaires. Une section dédiée à la consultation chez un professionnel de santé est impérativement insérée comme rappel pour l'utilisateur.
+Enfin, le client aura le choix de voir son historique d'analyse, ainsi que de refaire une analyse pour une autre zone de peau. 
 
 ## Déploiement de l'application
-
-Achat d'un domaine
+Le déploiement de l'application s'est fait à travers une conteneurisation sous Docker. En parallèle, un achat d'un nom de domaine a été effectué afin d'héberger le site web ([Skinalyze](skinalyze.xyz)). Le site web est alors consultable depuis le lien fourni précédemment. Seul un compte est nécessaire pour accéder et bénéficier des services de _Skinalyze_. 
 
 ## Conclusion
 +++
