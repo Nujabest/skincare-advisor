@@ -100,7 +100,7 @@ Un diagnostic plus complet est fourni, contenant les conseils de routine, de nut
 Enfin, le client aura le choix de voir son historique d'analyse, ainsi que de refaire une analyse pour une autre zone de peau. 
 
 ## Déploiement de l'application
-Le déploiement de l'application s'est fait à travers une conteneurisation sous Docker. En parallèle, un achat d'un nom de domaine a été effectué afin d'héberger le site web de [Skinalyze](www.skinalyze.xyz). Le site web est alors consultable depuis le lien fourni précédemment. Seul un compte est nécessaire pour accéder et bénéficier des services de _Skinalyze_. 
+Le déploiement de l'application s'est fait à travers une conteneurisation sous Docker. En parallèle, un achat d'un nom de domaine a été effectué afin d'héberger le site web de [Skinalyze](https://www.skinalyze.xyz). Le site web est alors consultable depuis le lien fourni précédemment. Seul un compte est nécessaire pour accéder et bénéficier des services de _Skinalyze_. 
 
 ## Conclusion
 Ce projet _Skinalyze_ est une application web d'analyse de peau qui combine des langages de programmation et l'intelligence artificielle (IA) de Mistral AI. Elle permet aux utilisateurs de télécharger des photos, d'obtenir des analyses automatisées avec des recommandations personnalisées et de consulter leur historique.
