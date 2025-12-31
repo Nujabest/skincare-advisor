@@ -108,10 +108,9 @@ L'architecture utilise SQLite, Flask et Docker pour créer une solution légère
 Pour alimenter la complétude du projet, des tests unitaires et de configuration, couvrant un large champ de développement, ont été inclus. 
 _Skinalyze_ illustre alors comment l'IA peut être mise au service de la santé dermatologique à travers une application web accessible et intuitive.
 
-Projet réalisé par : 
+Projet réalisé par (groupe 9) : 
 - Ben Belgacem Dikra
 - Elamranijoutei Rime
 - Mascret Arthur (Nujabest)
 - Pidburachynskyi Arsen (apidburachynskyi)
 - Tran Cindy (cindyoff)
-Groupe 9
