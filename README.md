@@ -42,9 +42,10 @@ skincare-advisor/─ static/
 │── docker-compose.yaml
 │── dockerfile
 │── requirements.txt
+```
 
-#
-```# Tests de validation et de robustesse
+ 
+# Tests de validation et de robustesse
 Afin de tester la robustesse, et donc de valider les commandes, deux tests ont été mobilisés dans cette situation. 
 Tout d'abord, 
 
