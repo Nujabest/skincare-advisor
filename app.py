@@ -1,7 +1,3 @@
-# =========================
-# IMPORTS
-# =========================
-
 import os
 import uuid
 import base64
@@ -13,9 +9,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 
 from flask import (
-    Flask, render_template, request, jsonify,
-    redirect, session, send_from_directory, abort
-)
+    Flask, render_template, request, jsonify, redirect, session,send_from_directory, abort)
 
 from werkzeug.utils import secure_filename
 
@@ -45,10 +39,10 @@ DEMO_PASSWORD = os.getenv("DEMO_PASSWORD", "")
 
 app = Flask(__name__)
 
-# Clé secrète pour signer les sessions (en vrai il faut une clé forte)
-app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev-secret")
+# Secret_key pour les sessions
+app.secret_key = os.getenv("FLASK_SECRET_KEY", "secret")
 
-# Paramètres cookies (en prod on mettrait Secure=True + HTTPS)
+# HTTPS render
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 app.config["SESSION_COOKIE_SECURE"] = False
 
@@ -208,7 +202,7 @@ init_db()
 
 def allowed_file(filename: str) -> bool:
     """
-    Vérifie l'extension du fichier uploadé.
+    Vérifie l'extension du fichier upload.
     """
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXT
 
@@ -216,7 +210,7 @@ def allowed_file(filename: str) -> bool:
 def file_to_data_uri(path: str) -> str:
     """
     Convertit une image locale en data URI base64.
-    Utile car l'API Mistral accepte une image via URL/data URI.
+    API Mistral accepte une image via URL/data URI.
     """
     ext = os.path.splitext(path)[1].lower()
     mime = MIME_MAP.get(ext, "image/jpeg")
@@ -514,7 +508,7 @@ def mistral_vision_chat(data_uri: str, user_text: str) -> str:
         "Content-Type": "application/json",
     }
 
-    # Prompt système : on impose un format de sortie
+    # Prompt système
     system_prompt = (
         "Tu es un assistant de soin de la peau (informatif, pas médical). "
         "Tu analyses une PHOTO + le TEXTE utilisateur. "
@@ -546,7 +540,7 @@ def mistral_vision_chat(data_uri: str, user_text: str) -> str:
         "Si la photo est floue ou insuffisante, indique-le et mets confiance=faible."
     )
 
-    # Si l'utilisateur n'a rien écrit, on met un texte par défaut
+    # Si l'utilisateur n'a rien écrit texte par défaut
     if not (user_text or "").strip():
         user_text = "Analyse la photo et donne un rapport de soin de peau. Ajoute des produits avec marques."
 
@@ -586,7 +580,7 @@ def analyze():
     filename = session.get("uploaded_image")
     note = session.get("uploaded_note", "")
 
-    # Vérifie qu'on a bien une image dans la session
+    # Vérifie qu'on a  une image dans la session
     if not filename:
         session["last_diagnostic"] = "Erreur: aucune image fournie."
         return jsonify({"error": "No image uploaded"}), 400
@@ -615,7 +609,7 @@ def analyze():
         session["last_diagnostic"] = clean_text
         session["last_metrics"] = metrics
 
-        # Stockage des metrics dans la DB en JSON texte
+        # Stockage des metrics dans la DB en JSON
         metrics_json = json.dumps(metrics, ensure_ascii=False)
 
         # Enregistre en DB (image + note + diagnostic + metrics)
@@ -625,7 +619,6 @@ def analyze():
         return jsonify({"ok": True})
 
     except Exception as e:
-        # En cas d'erreur : on met un message propre
         session["last_diagnostic"] = f"Erreur: {str(e)}"
         session["last_metrics"] = normalize_metrics(None)
         return jsonify({"error": str(e)}), 500
@@ -634,5 +627,4 @@ def analyze():
 # RUN
 
 if __name__ == "__main__":
-    # debug=True pour dev seulement (pas prod)
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=8080, debug=True)
