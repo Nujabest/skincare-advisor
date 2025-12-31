@@ -92,7 +92,7 @@ Tout d'abord, l'utilisateur est mené vers la page d'accueil qui présente le si
 Après validation de l'image sélectionnée, l'utilisateur se retrouve alors sur son diagnostic personnel. Six mesures sont mises en place pour résumer la situation de l'utilisateur, basée sur l'image :
 - Acné : existence d'acné ou non
 - Risque irritation
-- Confiance : ????
+- Confiance : niveau de confiance de l'analyse IA générée
 - Urgence : urgence de traitement ou non
 - Score peau : score sur 100 points au total, permettant d'indiquer à l'utilisateur l'amélioration possible de sa condition dermatologique
 - Inflammation : présence ou non d'une zone d'inflammation sur la peau
